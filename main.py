@@ -12,57 +12,39 @@ player=wrap.sprite.add("mario-1-big",20,250,"stand")
 block=wrap.sprite.add("mario-items",450,250,"moving_platform2",visible=False)
 wrap.sprite.set_angle(block,180)
 wrap.sprite.show(block)
+def manyifs():
+    global speeddef,shetcoin
+    if wrap.sprite.is_collide_sprite(player,block) == True:
+        wrap.sprite.move_to(player,20,250)
+    elif wrap.sprite.is_collide_sprite(star,player) == True:
+        wrap.sprite.move_to(player,20,250)
+        speeddef=speeddef+10
+    elif wrap.sprite.is_collide_sprite(coin,player) == True and wrap.sprite.is_visible(coin) == True:
+        shetcoin=shetcoin+1
+        wrap.sprite.hide(coin)
+        print(shetcoin)
 
 @wrap.on_key_always(wrap.K_RIGHT)
 def right():
     global speeddef,shetcoin
     wrap.sprite.move(player,10,0)
-    if wrap.sprite.is_collide_sprite(player, block) == True:
-        wrap.sprite.move_to(player, 20, 250)
-    elif wrap.sprite.is_collide_sprite(star,player) == True:
-        wrap.sprite.move_to(player,20,250)
-        speeddef=speeddef+10
-    elif wrap.sprite.is_collide_sprite(coin,player) == True and wrap.sprite.is_visible(coin) == True:
-        shetcoin=shetcoin+1
-        wrap.sprite.hide(coin)
-        print(shetcoin)
+    manyifs()
 
 @wrap.on_key_always(wrap.K_LEFT)
 def left():
-    global shetcoin
+    global shetcoin,speeddef
     wrap.sprite.move(player,-10,0)
-    if wrap.sprite.is_collide_sprite(player,block) == True:
-        wrap.sprite.move_to(player,20,250)
-    elif wrap.sprite.is_collide_sprite(coin,player) == True and wrap.sprite.is_visible(coin) == True:
-        shetcoin=shetcoin+1
-        wrap.sprite.hide(coin)
-        print(shetcoin)
+    manyifs()
 @wrap.on_key_always(wrap.K_UP)
 def up():
     global speeddef,shetcoin
     wrap.sprite.move(player,0,-10)
-    if wrap.sprite.is_collide_sprite(player,block) == True:
-        wrap.sprite.move_to(player,20,250)
-    elif wrap.sprite.is_collide_sprite(star,player) == True:
-        wrap.sprite.move_to(player,20,250)
-        speeddef=speeddef+10
-    elif wrap.sprite.is_collide_sprite(coin, player) == True and wrap.sprite.is_visible(coin) == True:
-        shetcoin = shetcoin + 1
-        wrap.sprite.hide(coin)
-        print(shetcoin)
+    manyifs()
 @wrap.on_key_always(wrap.K_DOWN)
 def down():
     global speeddef,shetcoin
     wrap.sprite.move(player,0,10)
-    if wrap.sprite.is_collide_sprite(player,block) == True:
-        wrap.sprite.move_to(player,20,250)
-    elif wrap.sprite.is_collide_sprite(star,player) == True:
-        wrap.sprite.move_to(player,20,250)
-        speeddef=speeddef+10
-    elif wrap.sprite.is_collide_sprite(coin,player) == True and wrap.sprite.is_visible(coin) == True:
-        shetcoin=shetcoin+1
-        wrap.sprite.hide(coin)
-        print(shetcoin)
+    manyifs()
 @wrap.always()
 def walk():
     global speed
