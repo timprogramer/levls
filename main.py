@@ -12,37 +12,44 @@ player=wrap.sprite.add("mario-1-big",20,250,"stand")
 block=wrap.sprite.add("mario-items",450,250,"moving_platform2",visible=False)
 wrap.sprite.set_angle(block,180)
 wrap.sprite.show(block)
+texst1coin = wrap.sprite.add_text("+1 coin", xcoin, ycoin, "Arial")
+wrap.sprite.hide(texst1coin)
+textschet = wrap.sprite.add_text(str(shetcoin), 450, 20, "Arial")
 def manyifs():
-    global speeddef,shetcoin
+    global speeddef,shetcoin,xcoin,ycoin,texst1coin,textschet
+
     if wrap.sprite.is_collide_sprite(player,block) == True:
         wrap.sprite.move_to(player,20,250)
     elif wrap.sprite.is_collide_sprite(star,player) == True:
+        wrap.sprite.hide(texst1coin)
         wrap.sprite.move_to(player,20,250)
+        xcoin = random.randint(20, 860)
+        ycoin = random.randint(20, 460)
+        wrap.sprite.move_to(texst1coin,xcoin,ycoin)
+        wrap.sprite.show(coin)
+        wrap.sprite.move_to(coin,xcoin,ycoin)
         speeddef=speeddef+10
     elif wrap.sprite.is_collide_sprite(coin,player) == True and wrap.sprite.is_visible(coin) == True:
+        wrap.sprite.show(texst1coin)
         shetcoin=shetcoin+1
         wrap.sprite.hide(coin)
-        print(shetcoin)
+        wrap.sprite_text.set_text(textschet,str(shetcoin))
 
 @wrap.on_key_always(wrap.K_RIGHT)
 def right():
-    global speeddef,shetcoin
     wrap.sprite.move(player,10,0)
     manyifs()
 
 @wrap.on_key_always(wrap.K_LEFT)
 def left():
-    global shetcoin,speeddef
     wrap.sprite.move(player,-10,0)
     manyifs()
 @wrap.on_key_always(wrap.K_UP)
 def up():
-    global speeddef,shetcoin
     wrap.sprite.move(player,0,-10)
     manyifs()
 @wrap.on_key_always(wrap.K_DOWN)
 def down():
-    global speeddef,shetcoin
     wrap.sprite.move(player,0,10)
     manyifs()
 @wrap.always()
